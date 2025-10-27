@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import json
 import time
+import os
 from typing import List, Dict, Any
 
 # Configure Streamlit page
@@ -13,7 +14,7 @@ st.set_page_config(
 )
 
 # API Configuration
-API_BASE_URL = "http://localhost:8001"
+API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8001")
 
 class PolicyChatBot:
     def __init__(self):
