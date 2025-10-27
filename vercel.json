@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "main_prod.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    },
+    {
+      "src": "chat_interface.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/main_prod.py"
+    },
+    {
+      "src": "/chat",
+      "dest": "/main_prod.py"
+    },
+    {
+      "src": "/upload",
+      "dest": "/main_prod.py"
+    },
+    {
+      "src": "/documents",
+      "dest": "/main_prod.py"
+    },
+    {
+      "src": "/health",
+      "dest": "/main_prod.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/chat_interface.py"
+    }
+  ],
+  "env": {
+    "OPENAI_API_KEY": "@openai-api-key",
+    "CHROMA_DB_HOST": "@chroma-db-host",
+    "CHROMA_DB_PORT": "@chroma-db-port"
+  },
+  "functions": {
+    "main_prod.py": {
+      "maxDuration": 30
+    }
+  }
+}
+
+
+

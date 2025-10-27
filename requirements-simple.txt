@@ -1,0 +1,27 @@
+# Core web framework
+fastapi
+uvicorn[standard]
+
+# LangChain components
+langchain
+langchain-openai
+langchain-community
+
+# Vector database
+chromadb
+
+# Document processing
+pypdf2
+python-multipart
+
+# Configuration
+python-dotenv
+
+# Web interface
+streamlit
+
+# OpenAI
+openai
+
+# Text processing
+tiktoken

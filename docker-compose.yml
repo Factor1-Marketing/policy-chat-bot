@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  policy-chatbot:
+    build: .
+    container_name: policy-chatbot
+    ports:
+      - "8001:8001"  # Backend API
+      - "8501:8501"  # Frontend
+    volumes:
+      - ./chroma_db:/app/chroma_db  # Persistent vector database
+      - ./uploads:/app/uploads       # Policy documents
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
