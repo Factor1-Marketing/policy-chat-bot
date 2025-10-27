@@ -184,9 +184,9 @@ def main():
         
         try:
             stats = st.session_state.vector_store.get_collection_stats()
-            if stats and 'unique_files' in stats and stats['unique_files'] > 0:
-                st.info(f"Total documents: {stats.get('unique_files', 0)}")
-                st.info(f"Total chunks: {stats.get('total_documents', 0)}")
+            if stats and 'document_count' in stats and stats['document_count'] > 0:
+                st.info(f"Total documents: {stats.get('document_count', 0)}")
+                st.info(f"Total chunks: {stats.get('chunk_count', 0)}")
                 
                 # List documents
                 documents = os.listdir(st.session_state.config.UPLOAD_DIRECTORY)
@@ -202,7 +202,7 @@ def main():
                                 file_path = os.path.join(st.session_state.config.UPLOAD_DIRECTORY, file_name)
                                 try:
                                     # Remove from vector store
-                                    st.session_state.vector_store.delete_documents_by_file(file_path)
+                                    st.session_state.vector_store.delete_document(file_name)
                                     # Remove file
                                     os.remove(file_path)
                                     st.success(f"Deleted {file_name}")
@@ -221,7 +221,7 @@ def main():
         if st.button("🗑️ Clear All Documents", type="secondary"):
             try:
                 # Clear vector store
-                st.session_state.vector_store.clear_all_documents()
+                st.session_state.vector_store.clear_all()
                 # Clear upload directory
                 for file in os.listdir(st.session_state.config.UPLOAD_DIRECTORY):
                     if file.endswith(('.pdf', '.txt', '.md', '.docx')):
