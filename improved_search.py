@@ -58,7 +58,7 @@ class ImprovedSearchRAG:
             context = self.rag.format_context_with_sources(reranked_results)
             
             # Create messages
-            from langchain.schema import SystemMessage, HumanMessage
+            from langchain_core.messages import SystemMessage, HumanMessage
             messages = [
                 SystemMessage(content="""You are a helpful assistant that answers questions based on policy documents. 
             Use the provided context to answer questions accurately and cite specific sources.
@@ -83,7 +83,7 @@ class ImprovedSearchRAG:
             ]
             
             # Generate response
-            response = self.rag.llm(messages)
+            response = self.rag.llm.invoke(messages)
             answer = response.content
             
             # Extract sources

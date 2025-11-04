@@ -45,7 +45,7 @@ def migrate_data():
             local_data['ids']
         )):
             # Create Document object
-            from langchain.schema import Document
+            from langchain_core.documents import Document
             doc = Document(
                 page_content=doc_content,
                 metadata=metadata

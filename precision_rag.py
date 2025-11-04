@@ -6,7 +6,7 @@ Precision-focused RAG system
 import os
 from typing import List, Dict, Any
 from langchain_openai import ChatOpenAI
-from langchain.schema import SystemMessage, HumanMessage
+from langchain_core.messages import SystemMessage, HumanMessage
 
 class PrecisionRAG:
     """RAG system focused on precision over recall"""
@@ -82,7 +82,7 @@ Question: {question}
 Instructions: Answer the question using ONLY the specific information from the context above. If you find the exact answer, provide it with all details. If not, state clearly that the information is not available.""")
         ]
         
-        response = self.rag.llm(messages)
+        response = self.rag.llm.invoke(messages)
         
         # Format sources
         sources = []

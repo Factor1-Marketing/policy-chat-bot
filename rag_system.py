@@ -1,8 +1,8 @@
 import json
 from typing import List, Dict, Any, Optional, Generator
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema import HumanMessage, SystemMessage
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import HumanMessage, SystemMessage
 from vector_store import VectorStoreManager
 from config import Config
 
@@ -12,10 +12,14 @@ class RAGSystem:
         self.vector_store = VectorStoreManager()
         
         # Initialize LLM
+        # Ensure API key is set in environment
+        if self.config.OPENAI_API_KEY:
+            import os
+            os.environ["OPENAI_API_KEY"] = self.config.OPENAI_API_KEY
+        
         self.llm = ChatOpenAI(
-            model_name="gpt-3.5-turbo",
+            model="gpt-3.5-turbo",
             temperature=0.1,
-            openai_api_key=self.config.OPENAI_API_KEY,
             streaming=True
         )
         
@@ -132,7 +136,7 @@ Please provide a comprehensive answer based on the context above, including prop
             ]
             
             # Generate response
-            response = self.llm(messages)
+            response = self.llm.invoke(messages)
             answer = response.content
             
             # Extract sources for response

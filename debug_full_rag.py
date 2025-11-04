@@ -57,7 +57,7 @@ def debug_full_rag():
         print(f"Human message content: {messages[1].content}")
         
         # Test LLM response
-        llm_response = rag.llm(messages)
+        llm_response = rag.llm.invoke(messages)
         print(f"LLM Response: {llm_response.content}")
         
     except Exception as e:

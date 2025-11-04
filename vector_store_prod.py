@@ -4,7 +4,7 @@ import chromadb
 from chromadb.config import Settings
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
-from langchain.schema import Document
+from langchain_core.documents import Document
 from config import Config
 
 class ProductionVectorStoreManager:
